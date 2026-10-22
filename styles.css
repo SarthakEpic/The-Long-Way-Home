@@ -188,8 +188,10 @@ kbd { min-width: 20px; min-height: 18px; display: inline-grid; place-items: cent
 .game-sidebar { min-width: 0; position: relative; padding: 0 18px 14px; border: 1px solid rgba(112,137,176,.27); border-top: 2px solid var(--cyan-dim); background: linear-gradient(145deg,rgba(18,28,46,.98),rgba(13,21,36,.98)); box-shadow: 0 16px 40px rgba(1,5,13,.22),inset 0 1px rgba(224,238,255,.04); }
 .game-sidebar::before { content: ""; width: 5px; height: 5px; position: absolute; top: -4px; left: -1px; background: var(--cyan); box-shadow: 0 0 10px rgba(99,242,218,.7); }
 .mission-panel { position: relative; padding: 0 0 15px; border-bottom: 1px solid rgba(112,137,176,.2); }
-.panel-strap { display: flex; align-items: center; justify-content: space-between; color: #73839f; font: 8px var(--mono); letter-spacing: .12em; }
-.panel-strap span:last-child { color: #9ba9c0; }
+.panel-strap { min-height: 22px; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 10px; color: #73839f; font: 8px/1 var(--mono); letter-spacing: .1em; }
+.panel-strap > span { min-height: 22px; display: flex; align-items: center; }
+.panel-strap > span:last-child { justify-self: end; gap: 5px; padding: 0 8px; border: 1px solid rgba(112,137,176,.18); color: #9ba9c0; background: rgba(16,25,42,.55); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.panel-strap b { line-height: 1; font-weight: 600; }
 .panel-strap i { color: #5b6c88; font-style: normal; }
 .mission-heading { display: grid; grid-template-columns: 44px minmax(0,1fr); align-items: center; gap: 10px; margin: 16px 0 10px; }
 .mission-emblem { width: 44px; height: 44px; display: grid; grid-row: 1; place-items: center; margin: 0; color: var(--violet); filter: drop-shadow(0 0 8px rgba(162,148,255,.26)); }
@@ -360,4 +362,3 @@ kbd { min-width: 20px; min-height: 18px; display: inline-grid; place-items: cent
 .bezel-light { width: 5px; height: 5px; position: absolute; top: 4px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 7px rgba(99,242,218,.7); }
 .bezel-light-one { left: 5px; }
 .bezel-light-two { right: 5px; background: var(--pink); box-shadow: 0 0 7px rgba(255,134,216,.65); }
-.bezel-label { position: absolute; top: 1px; right: 18px; color: #71819a; font: 6px var(--mono); letter-spacing: .12em; }
