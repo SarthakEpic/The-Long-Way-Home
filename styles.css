@@ -207,17 +207,20 @@ kbd { min-width: 20px; min-height: 18px; display: inline-grid; place-items: cent
 .section-heading h2 { margin: 0; color: #dce5f5; font-size: 13px; font-weight: 700; letter-spacing: -.01em; }
 .section-heading > span { color: #72829c; font: 8px var(--mono); letter-spacing: .06em; }
 .level-list { display: flex; flex-direction: column; gap: 5px; }
-.level-button { width: 100%; min-height: 39px; display: grid; grid-template-columns: 25px 31px minmax(0,1fr) 16px; align-items: center; gap: 6px; position: relative; padding: 4px 9px 4px 7px; border: 1px solid rgba(102,128,163,.19); color: #95a3ba; background: rgba(16,27,45,.68); text-align: left; cursor: pointer; transition: border-color 160ms ease,color 160ms ease,background 160ms ease,transform 160ms ease; }
+.level-button { width: 100%; min-height: 46px; display: grid; grid-template-columns: 25px 31px minmax(0,1fr) 16px; align-items: center; gap: 6px; position: relative; padding: 4px 9px 4px 7px; border: 1px solid rgba(102,128,163,.19); color: #95a3ba; background: rgba(16,27,45,.68); text-align: left; cursor: pointer; transition: border-color 160ms ease,color 160ms ease,background 160ms ease,transform 160ms ease; }
 .level-button:hover { border-color: rgba(99,242,218,.48); color: #d8f3ee; background: rgba(28,50,66,.7); }
 .level-button:active { transform: translateY(1px); }
 .level-node { width: 8px; height: 8px; justify-self: center; position: relative; z-index: 1; border: 1px solid #7789a5; border-radius: 50%; background: #182942; box-shadow: 0 0 0 3px rgba(70,91,122,.14); }
 .level-number { color: #71819b; font: 9px var(--mono); }
+.level-meta { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 .level-name { overflow: hidden; color: #adb9ce; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; text-transform: capitalize; }
+.level-difficulty { color: #72839d; font: 7px var(--mono); letter-spacing: .1em; }
 .level-state { justify-self: end; color: var(--gold); font-size: 11px; text-shadow: 0 0 8px rgba(255,218,114,.35); }
 .level-button[aria-pressed="true"] { border-color: rgba(99,242,218,.68); color: var(--white); background: linear-gradient(90deg,rgba(35,107,108,.32),rgba(24,44,62,.78)); box-shadow: inset 3px 0 var(--cyan),0 0 13px rgba(57,222,207,.08); }
 .level-button[aria-pressed="true"] .level-node { border-color: var(--cyan); background: var(--cyan); box-shadow: 0 0 0 3px rgba(99,242,218,.13),0 0 10px rgba(99,242,218,.5); }
 .level-button[aria-pressed="true"] .level-number { color: var(--cyan); }
 .level-button[aria-pressed="true"] .level-name { color: #f0fff9; font-weight: 700; }
+.level-button[aria-pressed="true"] .level-difficulty { color: #88c9c1; }
 .level-button.is-solved .level-node { border-color: var(--gold); background: var(--gold); }
 .level-button.is-solved .level-state { color: var(--gold); }
 .level-button[aria-pressed="true"].is-solved .level-node { background: var(--cyan); }

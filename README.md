@@ -8,7 +8,7 @@ Open index.html in a modern browser, or run a local server in this folder with p
 
 - Click or focus a mirror and press Enter to rotate it.
 - Press H for a clue or R to restart the stage.
-- Choose any of the three hand-built stages. Completed stages and best move counts save in this browser.
+- Choose any of ten stages. The campaign adds mirrors, star shards, and scrambled starting angles as the routes get harder. Completed stages and best move counts save in this browser.
 - Optional sound starts off.
 
 ## Design
