@@ -1,34 +1,54 @@
-# Lunaria — The Long Way Home
+# Lunaria: The Long Way Home
 
-Lunaria is a short, moonlit mirror-routing puzzle. Turn each mirror to guide a firefly through every star shard and into the moonflower.
+[**Play Lunaria**](https://lunaria-the-long-way-home.onrender.com)
 
-## Play
+A firefly has lost its way home. Turn the mirrors to guide its beam through every star shard and into the moonflower.
 
-Open index.html in a modern browser, or run a local server in this folder with python -m http.server 8000 and visit http://localhost:8000.
+## How to play
 
-- Click or focus a mirror and press Enter to rotate it.
-- Press H for a clue or R to restart the stage.
-- Choose any of ten stages. The campaign adds mirrors, star shards, and scrambled starting angles as the routes get harder. Completed stages and best move counts save in this browser.
-- Optional sound starts off.
+```mermaid
+flowchart LR
+    Firefly["Start with the firefly"] --> Mirrors["Turn the mirrors"]
+    Mirrors --> Stars["Collect every star shard"]
+    Stars --> Flower["Light the moonflower"]
+```
 
-## Deploy on Render
+- Click a mirror, or focus it and press **Enter**, to rotate it.
+- Press **H** for a hint and **R** to restart the stage.
+- Pick any of the **10 stages**. Each one adds a little more to think about: extra mirrors, more star shards, and trickier starting angles.
+- The beam and collected stars update as you play, so you can see what each move changes.
 
-This repository includes a Render Blueprint for the static game. To publish it:
+## Play on your computer
 
-1. Sign in at [Render](https://dashboard.render.com/) and choose **New** → **Blueprint**.
-2. Connect GitHub if Render asks, then connect `SarthakEpic/The-Long-Way-Home`.
-3. Keep branch `main` and Blueprint Path `render.yaml`.
-4. Review the `lunaria-the-long-way-home` static site and click **Deploy Blueprint**.
-5. When the site status is **Live**, open its `.onrender.com` URL.
+The game is plain HTML, CSS, and JavaScript. There is nothing to install.
 
-The game has no build step or package installation. Render republishes commits pushed to `main` automatically.
+1. Download or clone this repository.
+2. Open `index.html` in a modern browser.
+3. If your browser blocks anything when opening the file directly, run this from the project folder:
 
-## Design
+   ```bash
+   python -m http.server 8000
+   ```
 
-The screen is built like a playable arcade HUD: the puzzle board takes the largest space, with stage identity, collectibles, move count, level select, and controls always in view. A midnight palette, crisp coordinate labels, chunky mirror controls, and a bright beam make the puzzle state easy to read. The interface stays in the game world instead of presenting the puzzle as a product or journal page.
+4. Visit [http://localhost:8000](http://localhost:8000).
 
-The game uses plain HTML, CSS, and JavaScript with no build step, packages, remote fonts, or external assets. Mirror changes update the light path immediately, collectible stars brighten when reached, and the moonflower lights up when the route is complete. Reduced-motion and keyboard support are included.
+## What carries over
 
-## References
+Completed stages and your best move counts are saved in this browser. They do not sync between different browsers or devices.
 
-The layout takes cues from the clear, board-first play view in [Mini Metro](https://www.minimetro.io/) and the direct light-routing feedback in [Mirror Post](https://splashscreen.games/game/mirror-post) and [Prism Quest](https://listeray.github.io/prismquest/). Lunaria's artwork, board, and interface are original.
+## A few design choices
+
+The puzzle board gets most of the screen because that is where the game happens. A bright beam, clear mirror controls, and stars that light up make the route easy to follow. The dark, moonlit colors keep the game feeling like a little night journey rather than a settings screen.
+
+The layout works with mouse or keyboard, adapts to smaller screens, and respects reduced-motion preferences. The artwork and interface are part of the project; the game does not need external assets or packages.
+
+## How it is hosted
+
+The live version is on [Render](https://lunaria-the-long-way-home.onrender.com). The `render.yaml` file tells Render to serve the project as a static site. New commits pushed to `main` deploy automatically.
+
+## Project files
+
+- `index.html` — the page and game controls
+- `styles.css` — the board, layout, and visual effects
+- `app.js` — mirror puzzles, stages, hints, and saved progress
+- `render.yaml` — Render's static-site setup
