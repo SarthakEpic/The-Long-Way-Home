@@ -3,39 +3,36 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#17251f" />
-    <meta name="description" content="Turn the moon mirrors, gather the lost stars, and lead a firefly home." />
+    <meta name="theme-color" content="#0b1020" />
+    <meta name="description" content="Rotate moon mirrors, collect every star shard, and guide a firefly to the moonflower." />
     <title>Lunaria — The Long Way Home</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
-    <div class="sky-grain" aria-hidden="true"></div>
-    <div class="sky-glow sky-glow-west" aria-hidden="true"></div>
-    <div class="sky-glow sky-glow-east" aria-hidden="true"></div>
-    <div class="distant-stars" aria-hidden="true"></div>
+    <div class="space-dust" aria-hidden="true"></div>
+    <div class="aurora aurora-one" aria-hidden="true"></div>
+    <div class="aurora aurora-two" aria-hidden="true"></div>
 
     <header class="gamebar">
-      <a class="brand" href="#" aria-label="Lunaria, return to the night garden">
+      <a class="brand" href="#" aria-label="Lunaria home">
         <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 42 42" fill="none">
-            <path d="M26.6 4.4c-1.2 2.6-1.9 5.5-1.9 8.6 0 10.5 8.4 19 18.8 19.2A19 19 0 1 1 26.6 4.4Z" fill="currentColor" />
-            <path d="M7.2 29.5c4.7-.7 7.7-3.5 9-8.3 1 4.8 3.9 7.6 8.6 8.5-4.8.9-7.6 3.8-8.6 8.5-1.2-4.7-4.2-7.6-9-8.7Z" fill="#E7B96D" />
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M24.6 4.2c-1.3 2.8-2 5.8-2 9.1 0 10.1 8.1 18.3 18.2 18.7A18.5 18.5 0 1 1 24.6 4.2Z" fill="currentColor"/>
+            <path d="m12.3 9 1.2 3.6 3.6 1.2-3.6 1.2-1.2 3.6-1.2-3.6-3.6-1.2 3.6-1.2L12.3 9Z" fill="#ffe37b"/>
           </svg>
         </span>
-        <span class="brand-type"><strong>Lunaria</strong><small>THE LONG WAY HOME</small></span>
+        <span class="brand-type"><strong>LUNARIA</strong><small>THE LONG WAY HOME</small></span>
       </a>
 
-      <div class="world-marker" aria-label="Your location in the moon garden">
-        <span class="marker-pin" aria-hidden="true"></span>
-        <span>THE MOON GARDEN</span>
-        <span class="marker-divider" aria-hidden="true"></span>
-        <span class="marker-coordinate">N 04° · E 12°</span>
+      <div class="world-marker" aria-label="Current game area">
+        <span class="world-icon" aria-hidden="true">✦</span>
+        <span class="world-copy"><small>WORLD MAP</small><strong id="chapterLabel">STAGE 01 · THE MOON GARDEN</strong></span>
       </div>
 
       <div class="topbar-right">
         <button class="quiet-button" id="helpButton" type="button" aria-haspopup="dialog" aria-controls="helpDialog">
-          <span class="help-glyph" aria-hidden="true">?</span><span>Field guide</span>
+          <span class="help-glyph" aria-hidden="true">?</span><span>How to play</span>
         </button>
         <button class="sound-button" id="soundButton" type="button" aria-pressed="false" aria-label="Turn sound on" title="Turn sound on">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v5h3.6l4.4 3.4V6.1l-4.4 3.4H4.5Z"/><path class="sound-wave" d="M16 9a4.3 4.3 0 0 1 0 6m2.4-8.4a7.7 7.7 0 0 1 0 10.8"/></svg>
@@ -43,107 +40,127 @@
       </div>
     </header>
 
-    <main class="game-layout">
-      <section class="playfield" aria-labelledby="levelTitle">
-        <div class="playfield-heading">
-          <div class="route-label" id="chapterLabel">FIELD NOTE 01 <span>·</span> THE MOON GARDEN</div>
-          <div class="live-status"><span class="signal-light" aria-hidden="true"></span><span id="signalStatus" aria-live="polite">THE GARDEN IS QUIET</span></div>
-        </div>
+    <main class="game-shell">
+      <div class="run-strip">
+        <span class="run-label"><i aria-hidden="true"></i> PUZZLE RUN <b>/</b> NIGHT GARDEN</span>
+        <span class="live-status"><i class="signal-light" aria-hidden="true"></i><span id="signalStatus" aria-live="polite">BEAM STANDBY</span></span>
+      </div>
 
-        <div class="board-frame" id="boardFrame" data-state="quiet">
-          <span class="frame-notch notch-top" aria-hidden="true"></span>
-          <span class="frame-notch notch-right" aria-hidden="true"></span>
-          <span class="frame-notch notch-bottom" aria-hidden="true"></span>
-          <span class="frame-notch notch-left" aria-hidden="true"></span>
-          <svg class="frame-botany botany-nw" viewBox="0 0 104 104" fill="none" aria-hidden="true">
-            <path d="M7 94C27 71 28 47 21 15M24 62C42 59 53 48 58 30M19 42C11 34 10 25 13 17M27 75C45 76 57 70 68 58" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M38 57C35 45 42 37 57 31 58 47 52 56 38 57ZM12 35C6 27 8 21 13 17 19 25 18 30 12 35ZM44 74C44 62 52 56 68 58 62 71 55 76 44 74Z" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="1.1"/>
-          </svg>
-          <svg class="frame-botany botany-se" viewBox="0 0 104 104" fill="none" aria-hidden="true">
-            <path d="M97 10C77 33 76 57 83 89M80 42C62 45 51 56 46 74M85 62C93 70 94 79 91 87M77 29C59 28 47 34 36 46" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M66 47C69 59 62 67 47 73 46 57 52 48 66 47ZM92 69C98 77 96 83 91 87 85 79 86 74 92 69ZM60 30C60 42 52 48 36 46 42 33 49 28 60 30Z" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="1.1"/>
-          </svg>
-          <div class="board-coordinate coordinate-north" aria-hidden="true">EAST · 12</div>
-          <div class="board-coordinate coordinate-west" aria-hidden="true">NORTH · 04</div>
-          <div class="board-grid-shell">
-            <svg class="beam-layer" id="beamSvg" viewBox="0 0 700 700" preserveAspectRatio="none" aria-hidden="true"></svg>
-            <div class="board-grid" id="puzzleGrid" role="group" aria-label="Puzzle board. Activate a moon mirror to rotate it."></div>
-            <div class="board-grid-overlay" aria-hidden="true"></div>
+      <div class="game-layout">
+        <section class="playfield" aria-labelledby="levelTitle">
+          <div class="playfield-heading">
+            <div class="stage-title-wrap">
+              <div class="stage-overline"><span>WORLD <b id="nightNumber">01</b></span><i aria-hidden="true"></i><span>STAGE <b id="meadowNumber">01</b></span></div>
+              <h1 id="levelTitle">Hush meadow</h1>
+              <p>Turn the mirrors. Catch every star. Wake the bloom.</p>
+            </div>
+
+            <div class="game-stats" aria-label="Current run stats">
+              <div class="stat-box stat-stars">
+                <span class="stat-label">STAR SHARDS</span>
+                <strong id="starCount">0 <small>/ 6</small></strong>
+                <span class="star-track" id="starTrack" aria-hidden="true"></span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">MOVES</span>
+                <strong id="turnCount">00</strong>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">BEST</span>
+                <strong id="bestCount">—</strong>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="board-legend" aria-label="Garden symbols">
-          <span class="legend-item"><i class="legend-firefly" aria-hidden="true"></i> lost firefly</span>
-          <span class="legend-item"><i class="legend-star" aria-hidden="true">✦</i> wandering star</span>
-          <span class="legend-item"><i class="legend-flower" aria-hidden="true">✿</i> moonflower</span>
-        </div>
-        <p class="field-caption"><span class="caption-stitch" aria-hidden="true"></span>Turn each moon mirror. The light remembers its way.</p>
-      </section>
-
-      <aside class="game-sidebar" aria-label="Meadow journal and controls">
-        <div class="journal-topline"><span>YOUR FIELD JOURNAL</span><span class="journal-seal" aria-hidden="true">✳</span></div>
-        <div class="level-heading">
-          <p class="level-overline">NIGHT <strong id="nightNumber">01</strong><span class="overline-slash">/</span> MEADOW <strong id="meadowNumber">01</strong></p>
-          <h1 id="levelTitle">Hush meadow</h1>
-          <p class="level-description">A firefly is waiting on the other side of the garden. Find the gentle route home.</p>
-        </div>
-
-        <div class="mission-note">
-          <span class="mission-glyph" aria-hidden="true">
-            <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="13.5" stroke="currentColor" stroke-width="1.2"/><path d="M10 25 25 10M11.5 11.5l13 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="18" cy="18" r="2.2" fill="currentColor"/><path d="M18 1.8v3M18 31.2v3M1.8 18h3M31.2 18h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          </span>
-          <div><span class="mission-label">TONIGHT'S ERRAND</span><p>Gather the six stars<br />and wake the moonflower.</p></div>
-        </div>
-
-        <section class="route-section" aria-labelledby="routeTitle">
-          <div class="section-heading">
-            <h2 id="routeTitle">A winding path</h2>
-            <span>01 — 03</span>
+          <div class="board-frame" id="boardFrame" data-state="quiet">
+            <div class="board-screen">
+              <div class="screen-topline">
+                <span><i aria-hidden="true"></i> MIRROR FIELD</span>
+                <span>GRID 07 × 07</span>
+              </div>
+              <div class="coordinate-board">
+                <div class="axis-top" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span></div>
+                <div class="axis-and-grid">
+                  <div class="axis-side" aria-hidden="true"><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span></div>
+                  <div class="board-grid-shell">
+                    <svg class="beam-layer" id="beamSvg" viewBox="0 0 700 700" preserveAspectRatio="none" aria-hidden="true"></svg>
+                    <div class="board-grid" id="puzzleGrid" role="group" aria-label="Puzzle board. Activate a moon mirror to rotate it."></div>
+                    <div class="board-grid-overlay" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="screen-bottomline"><span>◉ FIREFLY</span><span>✧ STAR SHARD</span><span>✿ MOONFLOWER</span></div>
+            </div>
+            <span class="bezel-light bezel-light-one" aria-hidden="true"></span>
+            <span class="bezel-light bezel-light-two" aria-hidden="true"></span>
+            <span class="bezel-label" aria-hidden="true">LUNARIA / OPTIC-01</span>
           </div>
-          <div class="level-list" id="levelList" role="group" aria-label="Choose a meadow"></div>
+
+          <div class="board-instructions">
+            <span class="instruction-main"><span class="instruction-spark" aria-hidden="true">✦</span> Rotate a mirror to redirect the beam.</span>
+            <span class="instruction-keys"><kbd>CLICK</kbd> or <kbd>ENTER</kbd> to turn</span>
+          </div>
         </section>
 
-        <div class="score-ledger" aria-label="Meadow progress">
-          <div class="star-progress">
-            <div class="ledger-label"><span>STARS FOUND</span><strong id="starCount">0 <small>/ 6</small></strong></div>
-            <span class="star-track" id="starTrack" aria-hidden="true"></span>
-          </div>
-          <div class="ledger-stat"><span class="ledger-label">TURNS</span><strong id="turnCount">00</strong></div>
-          <div class="ledger-stat"><span class="ledger-label">BEST</span><strong id="bestCount">—</strong></div>
-        </div>
+        <aside class="game-sidebar" aria-label="Mission and game controls">
+          <section class="mission-panel" aria-labelledby="missionTitle">
+            <div class="panel-strap"><span>MISSION FILE</span><span>01 <i>/</i> 03</span></div>
+            <div class="mission-emblem" aria-hidden="true">
+              <svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="19" stroke="currentColor" stroke-width="1.5"/><circle cx="26" cy="26" r="12" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"/><path d="M26 8v7m0 22v7M8 26h7m22 0h7" stroke="currentColor" stroke-width="1.5"/><path d="m18 34 16-16M19 19l14 14" stroke="currentColor" stroke-width="2" stroke-linecap="square"/><circle cx="26" cy="26" r="3" fill="currentColor"/></svg>
+            </div>
+            <p class="mission-kicker">TONIGHT'S OBJECTIVE</p>
+            <h2 id="missionTitle">Guide the <em>moonbeam</em></h2>
+            <p class="mission-copy">Lead the firefly through all six star shards and into the moonflower.</p>
+            <div class="objective-list">
+              <div><span class="objective-check">01</span><span>Line up the mirrors</span></div>
+              <div><span class="objective-check">02</span><span>Collect every star shard</span></div>
+              <div><span class="objective-check">03</span><span>Reach the moonflower</span></div>
+            </div>
+          </section>
 
-        <p class="hint-message" id="hintMessage" role="status" aria-live="polite" hidden></p>
-        <div class="control-row">
-          <button class="hint-button" id="hintButton" type="button" title="Get a small hint (H)">
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.4 11.8 8l5.8 2-5.8 1.9-1.8 5.7-1.9-5.7L2.4 10l5.7-2L10 2.4Z"/></svg>
-            <span>Find a clue</span><kbd>H</kbd>
-          </button>
-          <button class="reset-button" id="resetButton" type="button" aria-label="Reset this meadow" title="Reset this meadow (R)">
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.4 7.4A6.3 6.3 0 1 1 4 11.1M4.4 7.4V3.8m0 3.6H8"/></svg>
-          </button>
-          <button class="next-button" id="nextButton" type="button" hidden>Next meadow <span aria-hidden="true">↗</span></button>
-        </div>
-        <p class="unhurried-note"><span aria-hidden="true">☾</span> No clock out here. Take your time.</p>
-      </aside>
+          <section class="stage-selector" aria-labelledby="stageTitle">
+            <div class="section-heading"><h2 id="stageTitle">Choose a stage</h2><span>3 ROUTES</span></div>
+            <div class="level-list" id="levelList" role="group" aria-label="Choose a meadow"></div>
+          </section>
+
+          <p class="hint-message" id="hintMessage" role="status" aria-live="polite" hidden></p>
+
+          <div class="control-row">
+            <button class="hint-button" id="hintButton" type="button" title="Get a small hint (H)">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.4 11.8 8l5.8 2-5.8 1.9-1.8 5.7-1.9-5.7L2.4 10l5.7-2L10 2.4Z"/></svg>
+              <span>Use a hint</span><kbd>H</kbd>
+            </button>
+            <button class="reset-button" id="resetButton" type="button" aria-label="Restart this stage" title="Restart this stage (R)">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.4 7.4A6.3 6.3 0 1 1 4 11.1M4.4 7.4V3.8m0 3.6H8"/></svg>
+            </button>
+            <button class="next-button" id="nextButton" type="button" hidden>Next stage <span aria-hidden="true">→</span></button>
+          </div>
+
+          <div class="sidebar-footer">
+            <span class="footer-orbit" aria-hidden="true">☾</span>
+            <span>NO TIMER. FIND YOUR OWN WAY.</span>
+          </div>
+        </aside>
+      </div>
     </main>
 
     <footer class="game-footer">
-      <span>MOON GARDEN <i>·</i> FIELD GUIDE VOL. I</span>
-      <span class="key-hint"><kbd>R</kbd> restart <span>·</span> <kbd>H</kbd> hint <span>·</span> click a mirror to turn it</span>
-      <span class="footer-flower" aria-hidden="true">✳</span>
+      <span class="footer-title">LUNARIA <i>·</i> NIGHT GARDEN</span>
+      <span class="key-hint"><kbd>R</kbd> RESTART <b>·</b> <kbd>H</kbd> HINT <b>·</b> CLICK A MIRROR TO TURN IT</span>
+      <span class="footer-build">A LITTLE LIGHT GOES A LONG WAY <i>✦</i></span>
     </footer>
 
     <dialog class="help-dialog" id="helpDialog" aria-labelledby="helpTitle">
-      <form method="dialog" class="dialog-close-row"><button class="dialog-close" aria-label="Close field guide">×</button></form>
-      <p class="dialog-overline"><span aria-hidden="true">✳</span> A FIELD GUIDE TO NIGHT</p>
-      <h2 id="helpTitle">The light will show you.</h2>
+      <form method="dialog" class="dialog-close-row"><button class="dialog-close" aria-label="Close how to play">×</button></form>
+      <p class="dialog-overline"><span aria-hidden="true">✦</span> HOW TO PLAY</p>
+      <h2 id="helpTitle">Light the way home.</h2>
       <ol class="how-list">
-        <li><span>01</span><p><strong>Turn the mirrors.</strong> Tap one to tip it a quarter turn.</p></li>
-        <li><span>02</span><p><strong>Follow the beam.</strong> The firefly's light finds a straight path between mirrors.</p></li>
-        <li><span>03</span><p><strong>Gather the stars.</strong> Pass through each one, then reach the moonflower.</p></li>
+        <li><span>01</span><p><strong>Turn the mirrors.</strong> Click or tap a mirror to rotate it a quarter turn.</p></li>
+        <li><span>02</span><p><strong>Route the beam.</strong> Each mirror bends the light in a new direction.</p></li>
+        <li><span>03</span><p><strong>Collect the stars.</strong> Pass through every shard, then reach the moonflower.</p></li>
       </ol>
-      <p class="keyboard-note">GOOD TO KNOW <kbd>H</kbd> A CLUE <kbd>R</kbd> START OVER</p>
-      <form method="dialog"><button class="dialog-done">Back to the meadow <span aria-hidden="true">↗</span></button></form>
+      <p class="keyboard-note"><kbd>H</kbd> HINT <kbd>R</kbd> RESTART <span>·</span> TAKE YOUR TIME</p>
+      <form method="dialog"><button class="dialog-done">Back to the game <span aria-hidden="true">→</span></button></form>
     </dialog>
   </body>
 </html>

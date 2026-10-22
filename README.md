@@ -1,24 +1,22 @@
 # Lunaria — The Long Way Home
 
-Lunaria is a small moonlit routing puzzle. Rotate the garden mirrors to guide a lost firefly through every star and into the moonflower.
+Lunaria is a short, moonlit mirror-routing puzzle. Turn each mirror to guide a firefly through every star shard and into the moonflower.
 
 ## Play
 
-Open `index.html` in a modern browser, or serve this folder with `python -m http.server 8000` and visit `http://localhost:8000`.
+Open index.html in a modern browser, or run a local server in this folder with python -m http.server 8000 and visit http://localhost:8000.
 
-- Click a mirror (or focus it and press Enter) to turn it.
-- Press **H** for a clue or **R** to reset the meadow.
-- Finish all three hand-built routes. Completed meadows and best turn counts are saved in this browser.
-- Sound is optional and starts off.
+- Click or focus a mirror and press Enter to rotate it.
+- Press H for a clue or R to restart the stage.
+- Choose any of the three hand-built stages. Completed stages and best move counts save in this browser.
+- Optional sound starts off.
 
-## Design decisions
+## Design
 
-- **Board first:** the puzzle occupies the main stage, while the route, objective, and turn count live in a compact field journal.
-- **A small game's own world:** etched coordinates, botanical corner drawings, a warm paper journal, and custom firefly and flower marks make the interface feel like a night-garden game rather than a product dashboard.
-- **Tactile feedback:** the beam redraws as mirrors turn, stars glow when found, and the final flower wakes when the path is complete.
-- **Responsive and accessible:** the board scales for phones, mirrors and routes are real buttons, focus is visible, and animation respects reduced-motion settings.
-- **Plain web technologies:** semantic HTML, CSS, and vanilla JavaScript; no packages, build step, remote fonts, or external assets.
+The screen is built like a playable arcade HUD: the puzzle board takes the largest space, with stage identity, collectibles, move count, level select, and controls always in view. A midnight palette, crisp coordinate labels, chunky mirror controls, and a bright beam make the puzzle state easy to read. The interface stays in the game world instead of presenting the puzzle as a product or journal page.
+
+The game uses plain HTML, CSS, and JavaScript with no build step, packages, remote fonts, or external assets. Mirror changes update the light path immediately, collectible stars brighten when reached, and the moonflower lights up when the route is complete. Reduced-motion and keyboard support are included.
 
 ## References
 
-The interaction takes cues from the direct mirror and beam feedback in [Prism](https://github.com/rahulatrkm/prism). The garden mood was informed by small browser games such as [Planted](https://tripod.itch.io/planted) and [BLOOM](https://unlonelystudio.itch.io/bloom). Lunaria's artwork and layout are original CSS and inline SVG.
+The layout takes cues from the clear, board-first play view in [Mini Metro](https://www.minimetro.io/) and the direct light-routing feedback in [Mirror Post](https://splashscreen.games/game/mirror-post) and [Prism Quest](https://listeray.github.io/prismquest/). Lunaria's artwork, board, and interface are original.

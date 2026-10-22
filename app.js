@@ -182,7 +182,7 @@
     levelList.innerHTML = LEVELS.map((level, index) => {
       const solved = savedProgress.completed.includes(index);
       const active = index === levelIndex;
-      const label = "Meadow " + String(index + 1) + ": " + level.name + (solved ? ", completed" : "");
+      const label = "Stage " + String(index + 1) + ": " + level.name + (solved ? ", completed" : "");
       return '<button class="level-button' + (solved ? " is-solved" : "") + '" type="button" data-level="' + index + '" aria-label="' + label + '" aria-pressed="' + active + '" title="' + label + '">' +
         '<span class="level-node" aria-hidden="true"></span>' +
         '<span class="level-number">' + String(index + 1).padStart(2, "0") + '</span>' +
@@ -251,7 +251,7 @@
 
     renderLevelButtons();
     renderBoard(result);
-    $("chapterLabel").innerHTML = "FIELD NOTE " + String(levelIndex + 1).padStart(2, "0") + ' <span>·</span> ' + level.chapter;
+    $("chapterLabel").innerHTML = "STAGE " + String(levelIndex + 1).padStart(2, "0") + ' <span>·</span> ' + level.chapter;
     $("levelTitle").textContent = level.name;
     $("nightNumber").textContent = String(levelIndex + 1).padStart(2, "0");
     $("meadowNumber").textContent = String(levelIndex + 1).padStart(2, "0");
@@ -260,23 +260,23 @@
     $("turnCount").textContent = String(turns).padStart(2, "0");
     $("bestCount").textContent = savedProgress.best[levelIndex] ? String(savedProgress.best[levelIndex]).padStart(2, "0") : "—";
     $("signalStatus").textContent = completeText
-      ? "EVERY STAR IS ALIGHT"
+      ? "STAGE CLEAR // ALL STARS FOUND"
       : result.reachedBloom
-        ? "THE BLOOM IS CLOSE · " + (level.stars.length - count) + " STAR" + (level.stars.length - count === 1 ? "" : "S") + " LEFT"
+        ? "MOONFLOWER READY // " + (level.stars.length - count) + " STAR" + (level.stars.length - count === 1 ? "" : "S") + " LEFT"
         : result.looped
-          ? "THE LIGHT IS CIRCLING"
+          ? "BEAM LOOP DETECTED"
           : count > 0
-            ? "FOLLOW THE WARM LIGHT"
+            ? "ROUTE ACTIVE // STAR FOUND"
             : result.points.length > 1
-              ? "A THREAD OF LIGHT IS FOUND"
-              : "THE GARDEN IS QUIET";
+              ? "BEAM ACTIVE"
+              : "BEAM STANDBY";
     boardFrame.dataset.state = completeText ? "won" : result.points.length > 1 ? "listening" : "quiet";
     $("nextButton").hidden = !completeText;
-    $("nextButton").innerHTML = (levelIndex === LEVELS.length - 1 ? "Wander again" : "Next meadow") + ' <span aria-hidden="true">↗</span>';
+    $("nextButton").innerHTML = (levelIndex === LEVELS.length - 1 ? "Replay route" : "Next stage") + ' <span aria-hidden="true">↗</span>';
 
     if (completeText) {
-      $("nextButton").setAttribute("aria-label", levelIndex === LEVELS.length - 1 ? "Return to the first meadow" : "Go to the next meadow");
-      $("signalStatus").setAttribute("aria-label", "Every star is alight. The moonflower is awake.");
+      $("nextButton").setAttribute("aria-label", levelIndex === LEVELS.length - 1 ? "Replay the first stage" : "Go to the next stage");
+      $("signalStatus").setAttribute("aria-label", "Stage clear. All stars found and moonflower awake.");
     } else {
       $("signalStatus").removeAttribute("aria-label");
     }
