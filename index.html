@@ -25,13 +25,13 @@
         <span class="brand-type"><strong>LUNARIA</strong><small>THE LONG WAY HOME</small></span>
       </a>
 
-      <div class="world-marker" aria-label="Current game area">
+      <div class="world-marker" role="group" aria-label="Current game area">
         <span class="world-icon" aria-hidden="true">✦</span>
         <span class="world-copy"><small>WORLD MAP</small><strong id="chapterLabel">STAGE 01 · THE MOON GARDEN</strong></span>
       </div>
 
       <div class="topbar-right">
-        <button class="quiet-button" id="helpButton" type="button" aria-haspopup="dialog" aria-controls="helpDialog">
+        <button class="quiet-button" id="helpButton" type="button" aria-label="How to play" aria-haspopup="dialog" aria-controls="helpDialog">
           <span class="help-glyph" aria-hidden="true">?</span><span>How to play</span>
         </button>
         <button class="sound-button" id="soundButton" type="button" aria-pressed="false" aria-label="Turn sound on" title="Turn sound on">
@@ -55,7 +55,7 @@
               <p>Turn the mirrors. Catch every star. Wake the bloom.</p>
             </div>
 
-            <div class="game-stats" aria-label="Current run stats">
+            <div class="game-stats" role="group" aria-label="Current run stats">
               <div class="stat-box stat-stars">
                 <span class="stat-label">STAR SHARDS</span>
                 <strong id="starCount">0 <small>/ 6</small></strong>
@@ -104,17 +104,17 @@
 
         <aside class="game-sidebar" aria-label="Mission and game controls">
           <section class="mission-panel" aria-labelledby="missionTitle">
-            <div class="panel-strap"><span>MISSION FILE</span><span>01 <i>/</i> 03</span></div>
+            <div class="panel-strap"><span>MISSION FILE</span><span><b id="missionCount">01</b> <i>/</i> 03</span></div>
             <div class="mission-emblem" aria-hidden="true">
               <svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="19" stroke="currentColor" stroke-width="1.5"/><circle cx="26" cy="26" r="12" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"/><path d="M26 8v7m0 22v7M8 26h7m22 0h7" stroke="currentColor" stroke-width="1.5"/><path d="m18 34 16-16M19 19l14 14" stroke="currentColor" stroke-width="2" stroke-linecap="square"/><circle cx="26" cy="26" r="3" fill="currentColor"/></svg>
             </div>
             <p class="mission-kicker">TONIGHT'S OBJECTIVE</p>
             <h2 id="missionTitle">Guide the <em>moonbeam</em></h2>
             <p class="mission-copy">Lead the firefly through all six star shards and into the moonflower.</p>
-            <div class="objective-list">
-              <div><span class="objective-check">01</span><span>Line up the mirrors</span></div>
-              <div><span class="objective-check">02</span><span>Collect every star shard</span></div>
-              <div><span class="objective-check">03</span><span>Reach the moonflower</span></div>
+            <div class="objective-list" role="list" aria-label="Mission objectives">
+              <div id="objectiveMirrors" role="listitem" aria-label="Not complete: Line up the mirrors"><span class="objective-check" data-step="01" aria-hidden="true">01</span><span>Line up the mirrors</span></div>
+              <div id="objectiveStars" role="listitem" aria-label="Not complete: Collect every star shard"><span class="objective-check" data-step="02" aria-hidden="true">02</span><span>Collect every star shard</span></div>
+              <div id="objectiveBloom" role="listitem" aria-label="Not complete: Reach the moonflower"><span class="objective-check" data-step="03" aria-hidden="true">03</span><span>Reach the moonflower</span></div>
             </div>
           </section>
 

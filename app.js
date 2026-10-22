@@ -236,11 +236,20 @@
 
     const points = result.points.join(" ");
     beamSvg.innerHTML = points
-      ? '<polyline class="beam-halo" points="' + points + '"></polyline><polyline class="beam-line" pathLength="1" points="' + points + '"></polyline><circle class="beam-head" cx="' + points.split(" ").at(-1).split(",")[0] + '" cy="' + points.split(" ").at(-1).split(",")[1] + '" r="5"></circle>'
+      ? '<polyline class="beam-halo" pathLength="1" points="' + points + '"></polyline><polyline class="beam-line" pathLength="1" points="' + points + '"></polyline><circle class="beam-head" cx="' + points.split(" ").at(-1).split(",")[0] + '" cy="' + points.split(" ").at(-1).split(",")[1] + '" r="5"></circle>'
       : "";
     beamSvg.classList.remove("is-on");
     window.cancelAnimationFrame(beamAnimation);
     beamAnimation = window.requestAnimationFrame(() => beamSvg.classList.add("is-on"));
+  }
+
+  function updateObjective(id, complete) {
+    const objective = $(id);
+    const label = objective.querySelector("span:last-child").textContent.trim();
+    objective.classList.toggle("is-complete", complete);
+    objective.setAttribute("aria-label", (complete ? "Complete: " : "Not complete: ") + label);
+    const marker = objective.querySelector(".objective-check");
+    marker.textContent = complete ? "✓" : marker.dataset.step;
   }
 
   function updateScene() {
@@ -253,8 +262,12 @@
     renderBoard(result);
     $("chapterLabel").innerHTML = "STAGE " + String(levelIndex + 1).padStart(2, "0") + ' <span>·</span> ' + level.chapter;
     $("levelTitle").textContent = level.name;
-    $("nightNumber").textContent = String(levelIndex + 1).padStart(2, "0");
+    $("nightNumber").textContent = "01";
     $("meadowNumber").textContent = String(levelIndex + 1).padStart(2, "0");
+    $("missionCount").textContent = String(levelIndex + 1).padStart(2, "0");
+    updateObjective("objectiveMirrors", level.mirrors.every((mirror) => mirrorAngles[mirror.id] === mirror.solved));
+    updateObjective("objectiveStars", count === level.stars.length);
+    updateObjective("objectiveBloom", result.reachedBloom);
     $("starCount").innerHTML = count + " <small>/ " + level.stars.length + "</small>";
     $("starTrack").style.setProperty("--star-progress", Math.round((count / level.stars.length) * 100) + "%");
     $("turnCount").textContent = String(turns).padStart(2, "0");
@@ -272,7 +285,7 @@
               : "BEAM STANDBY";
     boardFrame.dataset.state = completeText ? "won" : result.points.length > 1 ? "listening" : "quiet";
     $("nextButton").hidden = !completeText;
-    $("nextButton").innerHTML = (levelIndex === LEVELS.length - 1 ? "Replay route" : "Next stage") + ' <span aria-hidden="true">↗</span>';
+    $("nextButton").innerHTML = (levelIndex === LEVELS.length - 1 ? "Replay route" : "Next stage") + ' <span aria-hidden="true">→</span>';
 
     if (completeText) {
       $("nextButton").setAttribute("aria-label", levelIndex === LEVELS.length - 1 ? "Replay the first stage" : "Go to the next stage");
@@ -323,11 +336,7 @@
       const updatedMirror = puzzleGrid.querySelector('[data-mirror="' + id + '"]');
       if (updatedMirror) updatedMirror.focus({ preventScroll: true });
     }
-    if (next.won && !previous.won) {
-      playTone(523, 0.22);
-    } else {
-      playTone(480 + (turns % 4) * 55, 0.055);
-    }
+    if (!next.won || previous.won) playTone(480 + (turns % 4) * 55, 0.055);
   }
 
   function showHint() {
