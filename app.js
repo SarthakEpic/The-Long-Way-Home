@@ -184,7 +184,10 @@
       const active = index === levelIndex;
       const label = "Meadow " + String(index + 1) + ": " + level.name + (solved ? ", completed" : "");
       return '<button class="level-button' + (solved ? " is-solved" : "") + '" type="button" data-level="' + index + '" aria-label="' + label + '" aria-pressed="' + active + '" title="' + label + '">' +
-        '<span class="level-number">' + String(index + 1).padStart(2, "0") + '</span></button>';
+        '<span class="level-node" aria-hidden="true"></span>' +
+        '<span class="level-number">' + String(index + 1).padStart(2, "0") + '</span>' +
+        '<span class="level-name">' + level.name + '</span>' +
+        '<span class="level-state" aria-hidden="true">' + (solved ? "✦" : "") + '</span></button>';
     }).join("");
   }
 
@@ -220,11 +223,11 @@
             ", tilting " + tilt + '. Activate to turn it." aria-pressed="' + (orientation === "/") + '">' +
             '<span class="mirror-shaft" aria-hidden="true"></span><span class="mirror-knob" aria-hidden="true"></span></button>';
         } else if (isSource) {
-          html += '<span class="source-mark" aria-hidden="true">✳</span>';
+          html += '<span class="source-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M22 21C12 9 7 11 9 17c2 6 8 8 13 8M26 21c10-12 15-10 13-4-2 6-8 8-13 8M22 27C11 36 9 42 15 41c5-1 9-6 11-12M26 27c11 9 13 15 7 14-5-1-9-6-11-12" fill="#e7c880" fill-opacity=".54" stroke="#f2d999" stroke-opacity=".8" stroke-width="1.2"/><circle cx="24" cy="24" r="5.3" fill="#f3c96e"/><circle cx="24" cy="24" r="2.4" fill="#fff7cf"/></svg></span>';
         } else if (isTarget) {
-          html += '<span class="target-mark" aria-hidden="true">✿</span>';
+          html += '<span class="target-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><g fill="currentColor"><ellipse cx="24" cy="10" rx="4" ry="7"/><ellipse cx="24" cy="38" rx="4" ry="7"/><ellipse cx="10" cy="24" rx="7" ry="4"/><ellipse cx="38" cy="24" rx="7" ry="4"/><ellipse cx="14.1" cy="14.1" rx="4" ry="7" transform="rotate(-45 14.1 14.1)"/><ellipse cx="33.9" cy="14.1" rx="4" ry="7" transform="rotate(45 33.9 14.1)"/><ellipse cx="14.1" cy="33.9" rx="4" ry="7" transform="rotate(45 14.1 33.9)"/><ellipse cx="33.9" cy="33.9" rx="4" ry="7" transform="rotate(-45 33.9 33.9)"/></g><circle cx="24" cy="24" r="4.1" fill="#e7c37d" stroke="#283e2f" stroke-width="1"/><path d="M23 34c-5 5-10 4-11 3 2-5 6-7 11-6m3 4c5 5 10 4 11 3-2-5-6-7-11-6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>';
         } else if (isStar) {
-          html += '<span class="waypoint-mark" aria-hidden="true">✦</span>';
+          html += '<span class="waypoint-mark" aria-hidden="true">✧</span>';
         }
         html += "</div>";
       }
@@ -251,6 +254,7 @@
     $("chapterLabel").innerHTML = "FIELD NOTE " + String(levelIndex + 1).padStart(2, "0") + ' <span>·</span> ' + level.chapter;
     $("levelTitle").textContent = level.name;
     $("nightNumber").textContent = String(levelIndex + 1).padStart(2, "0");
+    $("meadowNumber").textContent = String(levelIndex + 1).padStart(2, "0");
     $("starCount").innerHTML = count + " <small>/ " + level.stars.length + "</small>";
     $("starTrack").style.setProperty("--star-progress", Math.round((count / level.stars.length) * 100) + "%");
     $("turnCount").textContent = String(turns).padStart(2, "0");
@@ -307,6 +311,7 @@
     const level = LEVELS[levelIndex];
     const mirror = level.mirrors.find((item) => item.id === id);
     if (!mirror) return;
+    const keepMirrorFocus = document.activeElement && document.activeElement.dataset.mirror === id;
     const previous = traceBeam(level);
     mirrorAngles[id] = (mirrorAngles[id] || mirror.start) === "/" ? "\\" : "/";
     turns += 1;
@@ -314,6 +319,10 @@
     hintMessage.hidden = true;
     if (!previous.won && next.won) recordWin();
     updateScene();
+    if (keepMirrorFocus) {
+      const updatedMirror = puzzleGrid.querySelector('[data-mirror="' + id + '"]');
+      if (updatedMirror) updatedMirror.focus({ preventScroll: true });
+    }
     if (next.won && !previous.won) {
       playTone(523, 0.22);
     } else {
@@ -356,7 +365,12 @@
 
   levelList.addEventListener("click", (event) => {
     const button = event.target.closest("[data-level]");
-    if (button) selectLevel(Number(button.dataset.level));
+    if (button) {
+      const selectedLevel = Number(button.dataset.level);
+      selectLevel(selectedLevel);
+      const updatedButton = levelList.querySelector('[data-level="' + selectedLevel + '"]');
+      if (updatedButton) updatedButton.focus({ preventScroll: true });
+    }
   });
 
   puzzleGrid.addEventListener("click", (event) => {
