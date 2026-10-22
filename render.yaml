@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: lunaria-the-long-way-home
+    runtime: static
+    branch: main
+    buildCommand: 'echo "No build step required"'
+    staticPublishPath: .
