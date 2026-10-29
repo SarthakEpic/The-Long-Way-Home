@@ -191,6 +191,7 @@
   let levelIndex = 0;
   let turns = 0;
   let mirrorAngles = {};
+  let turnHistory = [];
   let soundOn = false;
   let audioContext = null;
   let savedProgress = readProgress();
@@ -382,18 +383,21 @@
     $("starCount").innerHTML = count + " <small>/ " + level.stars.length + "</small>";
     $("starTrack").style.setProperty("--star-progress", Math.round((count / level.stars.length) * 100) + "%");
     $("turnCount").textContent = String(turns).padStart(2, "0");
+    $("undoButton").disabled = turnHistory.length === 0;
     $("bestCount").textContent = savedProgress.best[levelIndex] ? String(savedProgress.best[levelIndex]).padStart(2, "0") : "—";
     $("signalStatus").textContent = completeText
-      ? "STAGE CLEAR // ALL STARS FOUND"
+      ? "ROUTE CLEAR // ALL SHARDS FOUND"
       : result.reachedBloom
         ? "MOONFLOWER READY // " + (level.stars.length - count) + " STAR" + (level.stars.length - count === 1 ? "" : "S") + " LEFT"
         : result.looped
-          ? "BEAM LOOP DETECTED"
-          : count > 0
-            ? "ROUTE ACTIVE // STAR FOUND"
-            : result.points.length > 1
-              ? "BEAM ACTIVE"
-              : "BEAM STANDBY";
+          ? "BEAM LOOPED // TURN A MIRROR TO UNKNOT IT"
+          : count === level.stars.length
+            ? "ALL SHARDS FOUND // GUIDE THE BEAM TO THE BLOOM"
+            : count > 0
+              ? count + " / " + level.stars.length + " STAR SHARD" + (count === 1 ? "" : "S") + " FOUND"
+              : result.points.length > 1
+                ? "BEAM IN FLIGHT"
+                : "BEAM STANDBY";
     boardFrame.dataset.state = completeText ? "won" : result.points.length > 1 ? "listening" : "quiet";
     $("nextButton").hidden = !completeText;
     $("nextButton").innerHTML = (levelIndex === LEVELS.length - 1 ? "Replay route" : "Next stage") + ' <span aria-hidden="true">→</span>';
@@ -408,6 +412,7 @@
 
   function resetLevel() {
     turns = 0;
+    turnHistory = [];
     setMirrorDefaults(LEVELS[levelIndex]);
     hintMessage.hidden = true;
     updateScene();
@@ -417,6 +422,7 @@
     if (!Number.isInteger(index) || index < 0 || index >= LEVELS.length) return;
     levelIndex = index;
     turns = 0;
+    turnHistory = [];
     setMirrorDefaults(LEVELS[levelIndex]);
     hintMessage.hidden = true;
     updateScene();
@@ -437,6 +443,7 @@
     if (!mirror) return;
     const keepMirrorFocus = document.activeElement && document.activeElement.dataset.mirror === id;
     const previous = traceBeam(level);
+    turnHistory.push({ mirrorAngles: { ...mirrorAngles }, turns });
     mirrorAngles[id] = (mirrorAngles[id] || mirror.start) === "/" ? "\\" : "/";
     turns += 1;
     const next = traceBeam(level);
@@ -448,6 +455,20 @@
       if (updatedMirror) updatedMirror.focus({ preventScroll: true });
     }
     if (!next.won || previous.won) playTone(480 + (turns % 4) * 55, 0.055);
+  }
+
+  function undoLastTurn() {
+    const previousTurn = turnHistory.pop();
+    if (!previousTurn) return;
+    const activeMirror = document.activeElement && document.activeElement.dataset.mirror;
+    mirrorAngles = previousTurn.mirrorAngles;
+    turns = previousTurn.turns;
+    hintMessage.hidden = true;
+    updateScene();
+    if (activeMirror) {
+      const restoredMirror = puzzleGrid.querySelector('[data-mirror="' + activeMirror + '"]');
+      if (restoredMirror) restoredMirror.focus({ preventScroll: true });
+    }
   }
 
   function showHint() {
@@ -499,6 +520,7 @@
   });
 
   $("resetButton").addEventListener("click", resetLevel);
+  $("undoButton").addEventListener("click", undoLastTurn);
   $("hintButton").addEventListener("click", showHint);
   $("nextButton").addEventListener("click", () => selectLevel((levelIndex + 1) % LEVELS.length));
   $("helpButton").addEventListener("click", () => helpDialog.showModal());
@@ -514,8 +536,9 @@
     if (event.altKey || event.ctrlKey || event.metaKey || helpDialog.open) return;
     const target = event.target;
     if (target && (target.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(target.tagName))) return;
-    if (event.key.toLowerCase() === "r") resetLevel();
-    if (event.key.toLowerCase() === "h") showHint();
+    if (event.key.toLowerCase() === "z") undoLastTurn();
+    else if (event.key.toLowerCase() === "r") resetLevel();
+    else if (event.key.toLowerCase() === "h") showHint();
   });
 
   setMirrorDefaults(LEVELS[levelIndex]);

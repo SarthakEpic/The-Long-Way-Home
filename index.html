@@ -133,6 +133,7 @@
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.4 11.8 8l5.8 2-5.8 1.9-1.8 5.7-1.9-5.7L2.4 10l5.7-2L10 2.4Z"/></svg>
               <span>Use a hint</span><kbd>H</kbd>
             </button>
+            <button class="undo-button" id="undoButton" type="button" aria-label="Undo last mirror turn" aria-keyshortcuts="Z" title="Undo last mirror turn (Z)" disabled><span aria-hidden="true">↶</span></button>
             <button class="reset-button" id="resetButton" type="button" aria-label="Restart this stage" title="Restart this stage (R)">
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.4 7.4A6.3 6.3 0 1 1 4 11.1M4.4 7.4V3.8m0 3.6H8"/></svg>
             </button>
@@ -149,7 +150,7 @@
 
     <footer class="game-footer">
       <span class="footer-title">LUNARIA <i>·</i> NIGHT GARDEN</span>
-      <span class="key-hint"><kbd>R</kbd> RESTART <b>·</b> <kbd>H</kbd> HINT <b>·</b> CLICK A MIRROR TO TURN IT</span>
+      <span class="key-hint"><kbd>Z</kbd> UNDO <b>·</b> <kbd>R</kbd> RESTART <b>·</b> <kbd>H</kbd> HINT <b>·</b> CLICK A MIRROR TO TURN IT</span>
       <span class="footer-build">A LITTLE LIGHT GOES A LONG WAY <i>✦</i></span>
     </footer>
 
@@ -162,7 +163,7 @@
         <li><span>02</span><p><strong>Route the beam.</strong> Each mirror bends the light in a new direction.</p></li>
         <li><span>03</span><p><strong>Collect the stars.</strong> Pass through every shard, then reach the moonflower.</p></li>
       </ol>
-      <p class="keyboard-note"><kbd>H</kbd> HINT <kbd>R</kbd> RESTART <span>·</span> TAKE YOUR TIME</p>
+      <p class="keyboard-note"><kbd>Z</kbd> UNDO <kbd>H</kbd> HINT <kbd>R</kbd> RESTART <span>·</span> TAKE YOUR TIME</p>
       <form method="dialog"><button class="dialog-done">Back to the game <span aria-hidden="true">→</span></button></form>
     </dialog>
   </body>
